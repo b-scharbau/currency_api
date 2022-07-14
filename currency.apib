@@ -1,0 +1,47 @@
+FORMAT: 1A
+
+# Currency
+
+Currency is a simple API providing recent currency conversion data to the
+currency conversion app. It is used to provide a caching solution in front
+of apilayers.com's currency API to help avoid running into request quotas.
+
+# Group Symbols
+
+## Symbol Collection [/symbols]
+
+### List All Symbols [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "symbol": "EUR",
+                "description": "Euro",
+            },
+            {
+                "symbol": "JPY",
+                "description": "Japanese Yen",
+            },
+            {
+                "symbol": "USD",
+                "description": "US Dollar",
+            }
+        ]
+
+## Symbol [/symbols/{symbol}]
+
+### Show Specific Symbols [GET]
+
++ Response 200 (application/json)
+
+  {
+      "symbol": "EUR",
+      "description": "Euro",
+      "date": "2022-07-12",
+      "rates": {
+        "EUR": 1,
+        "JPY": 137.869631,
+        "USD": 1.00435,
+      },
+  }
