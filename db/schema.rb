@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_14_050259) do
+ActiveRecord::Schema.define(version: 2022_07_22_053136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,4 +20,12 @@ ActiveRecord::Schema.define(version: 2022_07_14_050259) do
     t.datetime "date"
   end
 
+  create_table "exchange_rates", force: :cascade do |t|
+    t.string "currency_symbol", null: false
+    t.string "other_symbol", null: false
+    t.float "rate"
+  end
+
+  add_foreign_key "exchange_rates", "currencies", column: "currency_symbol", primary_key: "symbol"
+  add_foreign_key "exchange_rates", "currencies", column: "other_symbol", primary_key: "symbol"
 end
