@@ -12,12 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2022_07_14_050259) do
 
-  create_table "currencies", force: :cascade do |t|
-    t.string "symbol"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "currencies", primary_key: "symbol", id: :string, force: :cascade do |t|
     t.string "description"
     t.datetime "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
