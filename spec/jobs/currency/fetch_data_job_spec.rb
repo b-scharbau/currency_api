@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe Currency::FetchDataJob, type: :worker do
   let(:subject) { described_class.perform_now }
 
