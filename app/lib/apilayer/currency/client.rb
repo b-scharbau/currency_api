@@ -1,34 +1,30 @@
 class Apilayer::Currency::Client
-  def get_currency(symbol)
+  PATH = 'latest'
 
+  def get_currency(symbol)
     query = {
       base: symbol
     }
 
-    response = HTTParty.get(
-      'https://api.apilayer.com/exchangerates_data/latest',
-      headers: headers,
-      query: query
-    )
+    begin
+      response = connector.get(query, PATH)
 
-    if response.code == 200
-      result = JSON.parse(response.body).symbolize_keys
+      result = JSON.parse(response).symbolize_keys
+    rescue => error
+      Rails.logger.error "Exception caused during API query: #{error.message}"
+      return
+    end
 
-      if block_given?
-          yield result
-        else
-          return result
-        end
+    if block_given?
+      yield result
     else
-      return false
+      return result
     end
   end
 
   private
 
-  def headers
-    @headers ||= {
-      apikey: Rails.application.credentials.apilayer[:api_key],
-    }
+  def connector
+    @connector ||= Apilayer::NetworkConnector.new
   end
 end
