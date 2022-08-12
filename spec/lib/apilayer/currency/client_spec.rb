@@ -17,7 +17,7 @@ RSpec.describe Apilayer::Currency::Client, type: :worker do
   end
 
   it 'calls #get on network connector with correct parameters' do
-    expect(connector).to receive(:get).with({base: 'EUR'}, 'latest')
+    expect(connector).to receive(:get).with('latest', {base: 'EUR'})
     subject
   end
 
