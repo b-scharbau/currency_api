@@ -1,5 +1,5 @@
 class Apilayer::NetworkConnector
-  BASE_URL = 'https://api.apilayer.com/exchangerates_data/'
+  BASE_URL = 'https://api.apilayer.com/exchangerates_data'
 
   def get(path, query)
     response = HTTParty.get(
