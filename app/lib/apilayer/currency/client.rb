@@ -7,7 +7,7 @@ class Apilayer::Currency::Client
     }
 
     begin
-      response = connector.get(query, PATH)
+      response = connector.get(PATH, query)
 
       result = JSON.parse(response).symbolize_keys
     rescue => error
