@@ -1,19 +1,15 @@
 class SymbolsController < ApplicationController
-  before_action :set_currency, only: [:show]
-
   def index
-    @symbols = Currency.all.order(:symbol)
+    use_case = Currency::IndexCase.new
+    symbols = use_case.perform
 
-    render json: @symbols
+    render json: symbols
   end
 
   def show
-    render json: @symbol, serializer: CurrencyDetailSerializer
-  end
+    use_case = Currency::ShowCase.new(currency_id: params[:id])
+    symbol = use_case.perform
 
-  private
-
-  def set_currency
-    @symbol = Currency.find(params[:id])
+    render json: symbol, serializer: CurrencyDetailSerializer
   end
 end

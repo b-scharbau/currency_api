@@ -9,6 +9,13 @@ resource 'Symbols' do
 
   let(:result) { JSON.parse(response_body, symbolize_names: true) }
 
+  let(:connector) { instance_double(Apilayer::NetworkConnector) }
+
+  before do
+    allow(Apilayer::NetworkConnector).to receive(:new).and_return(connector)
+    allow(connector).to receive(:get).and_return({rates: [], date: Time.new("2023-03-19T00:00:00+0000")}.to_json)
+  end
+
   get '/symbols' do
     explanation 'Fetch a list of all currency symbols available for conversion'
 
@@ -55,7 +62,7 @@ resource 'Symbols' do
 
     let(:expected_response) do
       {
-        date: "2020-12-12",
+        date: "2023-03-19",
         description: 'Euro',
         rates:
         [
