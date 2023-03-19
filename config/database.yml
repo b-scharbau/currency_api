@@ -28,6 +28,6 @@ test:
 
 production:
   <<: *default
-  database: currency_prd
-  username: currency_prd
-  password: currency_prd
+  database: currency
+  username: currency
+  password: <%= Rails.application.secrets[:database_password] %>
